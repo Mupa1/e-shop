@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 
-import Product from '../Product/Product';
+import Product from './Product/Product';
 import useStyles from './styles';
 
 const Products = ({ products, onAddToCart }) => {
