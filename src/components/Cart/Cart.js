@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Typography,
@@ -13,7 +14,10 @@ const Cart = ({ cart }) => {
   const classes = useStyles();
 
   const EmptyCart = () => (
-    <Typography variant="subtitle1">No items on shopping cart, start adding some!</Typography>
+    <Typography variant="subtitle1">
+      You have no items on your shopping cart,
+      <Link to="/" className={classes.link}>Start adding some!</Link>
+    </Typography>
   );
 
   const FilledCart = () => (
