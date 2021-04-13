@@ -40,8 +40,12 @@ const Navbar = ({ totalItems }) => {
   );
 };
 
+Navbar.defaultProps = {
+  totalItems: null,
+};
+
 Navbar.propTypes = {
-  totalItems: PropTypes.number.isRequired,
+  totalItems: PropTypes.number,
 };
 
 export default Navbar;

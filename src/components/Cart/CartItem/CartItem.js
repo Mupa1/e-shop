@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
   const classes = useStyles();
 
   return (
@@ -22,11 +22,30 @@ const CartItem = ({ item }) => {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <div className={classes.buttons}>
-          <Button type="button" size="small">-</Button>
+          <Button
+            type="button"
+            size="small"
+            onClick={() => onUpdateCartQty(item.id, item.quantity - 1)}
+          >
+            -
+          </Button>
           <Typography>{item.quantity}</Typography>
-          <Button type="button" size="small">+</Button>
+          <Button
+            type="button"
+            size="small"
+            onClick={() => onUpdateCartQty(item.id, item.quantity + 1)}
+          >
+            +
+          </Button>
         </div>
-        <Button type="button" variant="contained" color="secondary">Remove</Button>
+        <Button
+          type="button"
+          variant="contained"
+          color="secondary"
+          onClick={() => onRemoveFromCart(item.id)}
+        >
+          Remove
+        </Button>
       </CardActions>
     </Card>
   );
@@ -34,6 +53,8 @@ const CartItem = ({ item }) => {
 
 CartItem.propTypes = {
   item: PropTypes.instanceOf(Object).isRequired,
+  onUpdateCartQty: PropTypes.func.isRequired,
+  onRemoveFromCart: PropTypes.func.isRequired,
 };
 
 export default CartItem;
