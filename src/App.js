@@ -12,7 +12,6 @@ import {
 const App = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
-  console.log(products);
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
 
@@ -50,8 +49,6 @@ const App = () => {
     fetchCart();
   }, []);
 
-  console.log(cart);
-
   return (
     <Router>
       <div>
@@ -69,7 +66,7 @@ const App = () => {
             />
           </Route>
           <Route exact path="/checkout">
-            <Checkout />
+            <Checkout cart={cart} />
           </Route>
         </Switch>
       </div>
