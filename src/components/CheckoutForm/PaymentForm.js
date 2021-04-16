@@ -20,38 +20,38 @@ const PaymentForm = ({
     const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
 
     if (error) {
-      console.log(error);
-    } else {
-      const orderData = {
-        line_item: checkoutToken.live.line_items,
-        customer: {
-          firstname: shippingData.firstName,
-          lastname: shippingData.lastName,
-          email: shippingData.email,
-        },
-        shipping: {
-          name: 'Primary',
-          street: shippingData.address1,
-          town_city: shippingData.city,
-          county_state: shippingData.subdivision,
-          postal_zip_code: shippingData.Zip,
-          country: shippingData.shippingCountry,
-        },
-        fullfillment: { shipping_method: shippingData.shippingOption },
-        payment: {
-          gateway: 'stripe',
-          stripe: {
-            payment_method_id: paymentMethod.id,
-          },
-        },
-      };
-
-      onCaptureCheckout(checkoutToken.id, orderData);
-
-      timeout();
-
-      nextStep();
+      // eslint-disable-next-line consistent-return
+      return error;
     }
+    const orderData = {
+      line_item: checkoutToken.live.line_items,
+      customer: {
+        firstname: shippingData.firstName,
+        lastname: shippingData.lastName,
+        email: shippingData.email,
+      },
+      shipping: {
+        name: 'Primary',
+        street: shippingData.address1,
+        town_city: shippingData.city,
+        county_state: shippingData.subdivision,
+        postal_zip_code: shippingData.Zip,
+        country: shippingData.shippingCountry,
+      },
+      fullfillment: { shipping_method: shippingData.shippingOption },
+      payment: {
+        gateway: 'stripe',
+        stripe: {
+          payment_method_id: paymentMethod.id,
+        },
+      },
+    };
+
+    onCaptureCheckout(checkoutToken.id, orderData);
+
+    timeout();
+
+    nextStep();
   };
 
   return (

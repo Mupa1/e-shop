@@ -144,7 +144,7 @@ Checkout.propTypes = {
   cart: PropTypes.instanceOf(Object).isRequired,
   order: PropTypes.instanceOf(Object).isRequired,
   onCaptureCheckout: PropTypes.instanceOf(Object).isRequired,
-  error: PropTypes.instanceOf(Object).isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 export default Checkout;
