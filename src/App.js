@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import commerce from './lib/commerce';
 import './App.css';
 import {
@@ -24,9 +25,20 @@ const App = () => {
   const fetchCart = async () => setCart(await commerce.cart.retrieve());
 
   const handleAddToCart = async (productId, quantity) => {
-    const { cart } = await commerce.cart.add(productId, quantity);
-
-    setCart(cart);
+    await commerce.cart.add(productId, quantity)
+      .then(item => {
+        setCart(item.cart);
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully added to cart',
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops, something went wrong',
+          text: error.text,
+        });
+      });
   };
 
   const handleUpdateCartQty = async (productId, quantity) => {
@@ -36,15 +48,37 @@ const App = () => {
   };
 
   const handleRemoveFromCart = async productId => {
-    const { cart } = await commerce.cart.remove(productId);
-
-    setCart(cart);
+    await commerce.cart.remove(productId)
+      .then(item => {
+        setCart(item.cart);
+        Swal.fire({
+          icon: 'success',
+          title: 'Item(s) deleted from cart',
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops, something went wrong',
+          text: error.text,
+        });
+      });
   };
 
   const handleEmptyCart = async () => {
-    const { cart } = await commerce.cart.empty();
-
-    setCart(cart);
+    await commerce.cart.empty()
+      .then(item => {
+        setCart(item.cart);
+        Swal.fire({
+          icon: 'success',
+          title: 'Cart Emptied!',
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops, something went wrong',
+          text: error.text,
+        });
+      });
   };
 
   const refreshCart = async () => {
